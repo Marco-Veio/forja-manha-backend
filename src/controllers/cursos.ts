@@ -16,6 +16,11 @@ export default {
   create: async (request: Request, response: Response) => {
     try {
       const { nome, cargaHoraria, descricao, professor } = request.body;
+
+      if (!nome || !cargaHoraria || !descricao) {
+        return response.status(400).json("Dados do curso incompletos");
+      }
+
       const classes = await prisma.cursos.create({
         data: {
           nome,
